@@ -1,0 +1,15 @@
+# intelliJ
+.idea
+
+# python evnironment
+.venv
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+
+# downloads
+dl
+
+# Verknüfungen	
+*.lnk
