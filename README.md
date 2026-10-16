@@ -2,6 +2,8 @@
 A roguelike game development Project with the focus on software development strategies
 
 ## Was ist Git und warum sollte es verwendet werden?
+Git ist ein Versionskontrollsystem das die Änderungen an einem Projekt abspeichert. Dabei speichert Git verschiedene Versionen des Quellcodes, sodass man jederzeit sehen kann, was geändert wurde, wer etwas geändert hat und wann eine Änderung stattgefunden hat.
+Dadurch ist es u.a. möglich, zu einer früheren Version eines Programms zurückzukehren oder parallel an einem Projekt zu arbeiten. Es bietet sich an Git zu benutzen, da ansonsten viel Zeit für das manuelle Zusammenführen von verschiedenen Versionen der Gruppenteilnehmer verloren geht. Es bietet Übersichtlichkeit und klare Strukturen mit denen Fehler und Missverständnisse vermieden werden können.
 
 ### Grundlegende Git-Befehle (z. B. git init, git add, git commit, git push)
 Änderungen an Dateien (in der Workingcopy) werden mit ```git add``` zum "Staging" (Index) hinzugefügt. Dies ist eine Art Sammelbereich für Änderungen, die mit dem nächsten Commit in das Repository überführt werden. Neue (bisher nicht versionierte Dateien) müssen ebenfalls zunächst mit ```git add``` zum Staging hinzugefügt werden.
@@ -24,4 +26,5 @@ Wenn ein Merge-Konflikt auftritt, werden Markierungen an den entsprechenden Stel
 text
 
 ### Nützliche Git-Tools und Plattformen (z. B. GitHub)
-text
+Github ist eine Onlineplattform, auf der Entwickler ihre Codeprojekte hochladen und in Form von Git versionsbasiert entwickeln können.
+Außerdem bieten verschiedene Code-Editoren (wie z.B. Visual Studio Code) Möglichkeiten an, Git direkt im Editor zu nutzen.
