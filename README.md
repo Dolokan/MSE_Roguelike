@@ -6,7 +6,11 @@ Git ist ein Versionskontrollsystem das die Änderungen an einem Projekt abspeich
 Dadurch ist es u.a. möglich, zu einer früheren Version eines Programms zurückzukehren oder parallel an einem Projekt zu arbeiten. Es bietet sich an Git zu benutzen, da ansonsten viel Zeit für das manuelle Zusammenführen von verschiedenen Versionen der Gruppenteilnehmer verloren geht. Es bietet Übersichtlichkeit und klare Strukturen mit denen Fehler und Missverständnisse vermieden werden können.
 
 ### Grundlegende Git-Befehle (z. B. git init, git add, git commit, git push)
-text
+Änderungen an Dateien (in der Workingcopy) werden mit ```git add``` zum "Staging" (Index) hinzugefügt. Dies ist eine Art Sammelbereich für Änderungen, die mit dem nächsten Commit in das Repository überführt werden. Neue (bisher nicht versionierte Dateien) müssen ebenfalls zunächst mit ```git add``` zum Staging hinzugefügt werden.
+
+Änderungen kann man mit ```git log``` betrachten, dabei erhält man u.a. eine Liste der Commits und der jeweiligen Commmit-Messages.
+
+Mit ```git diff``` kann man gezielt Änderungen zwischen Commits oder Branches betrachten.
 
 ### Branches und ihre Nutzung, Umgang mit Merge-Konflikten - Alina de Vries
 Branches werden verwendet, um unabhängig neue Funktionalitäten zu entwickeln. 
