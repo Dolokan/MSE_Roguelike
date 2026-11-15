@@ -1,5 +1,7 @@
 # MSE_Roguelike
-A roguelike game development Project with the focus on software development strategies
+Im Rahmen dieses Projekts wird ein 2D-Top-Down-Roguelike mit einem speziellen Fokus auf Techniken der modernen Softwareentwicklung umgesetzt.
+Dabei handelt es sich um ein Computerspiel, bei dem Wellen an Gegnern die Spielfigur angreifen, während diese versucht den Gegnern auszuweichen und dabei automatisch Angriffe durchführt.
+Mit jeder Welle kann der Spieler Upgrades für seine Waffen und Stats erwerben und so die immer schwierigeren Wellen meistern. Das Ziel ist es möglichst viele Wellen zu überleben. Jeder Spieldurchlauf ist dabei anders, z.B. durch zufällig platzierte Gegner und zufällige Upgrades im Shop.
 
 ## Dokumentation
 ### CI/CD
@@ -14,8 +16,18 @@ Die Erstellung von Builds bzw. die Kompilierung ist zu diesem Zeitpunkt kein Tei
 
 ### UML und OOD
 
+#### Eventstorming
+
+Im ersten Schritt haben wir eine Eventstorming-Session durchgeführt und die wichtigsten Events für die Funktionalität des Spiels identifiziert. Das Ergebnis ist der folgenden Abbildung zu entnehmen.
+
+![Eventstorming Diagramm](./images/eventstorming.png)
+
 #### Domänenmodell
-...
+
+Auf Basis der Ergebnisse des Eventstormings wurde das Domänenmodell erstellt. Dieses ist in der folgenden Abbildung dargestellt.
+
+![Domänenmodell Diagramm](./images/domain_model.png)
+
 
 #### Bounded Contexts
 
@@ -39,7 +51,7 @@ Die Aggregates sind entkoppelt und synchronisieren ihren Zustand über die Domai
 | Service | Art | Aufgabe | Methoden |
 | :--- | :--- | :--- | :--- |
 | CollisionService | Domain Service | Fachregel zur Berechnung von Schaden über mehrere Aggregates (`Player`, `Enemy`, `Weapon`) unter Berücksichtigung von `power` und `armor` bei Kollisionen. | `processWeaponCollision(weaponId, enemyId)`<br>`processEnemyCollision(enemyId, playerId)` |
-| CombatService | Anwendungsservice | Steuert den Spielablauf: Aktualisiert Stats bei, verarbeitet eingesammelte XP-Objekte, prüft Levelaufstieg und löst kampfbezogene Events aus(z.B. Gegner zestört, Spieler Level erhöht, Run beendet). | `updateStats(event)`<br>`collectXP(playerId, xpObjectId)` |
+| CombatService | Anwendungsservice | Steuert den Spielablauf: Aktualisiert Stats, verarbeitet eingesammelte XP-Objekte, prüft Levelaufstieg und löst kampfbezogene Events aus(z.B. Gegner zestört, Spieler Level erhöht, Run beendet). | `updateStats(event)`<br>`collectXP(playerId, xpObjectId)` |
 | UpgradeShopService | Anwendungsservice | Reagiert auf das "Spieler Level erhöht"-Event, erstellt `Upgrade`-Optionen für den `UpgradeShop`, verarbeitet die Wahl des Upgrades und löst das "Spieler hat Upgrade ausgewählt"-Event aus. | `openShop(event)`<br>`chooseUpgrade(shopId, upgradeId)` |
 | InventoryService | Anwendungsservice | Reagiert auf das "Spieler hat Upgrade ausgewählt"-Event, fügt das Upgrade zum `Inventory` hinzu, berechnet die Gesamt-Stats und löst das `Stats aktualisiert`-Event aus. | `addUpgrade(event)` |
 
