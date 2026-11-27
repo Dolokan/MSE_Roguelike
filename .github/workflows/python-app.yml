@@ -50,7 +50,10 @@ jobs:
           const pct = cov ? `${cov.percent_covered.toFixed(2)}%` : 'N/A';
           const lines = cov ? `${cov.covered_lines}/${cov.num_statements}` : 'N/A';
           const branches = cov ? `${cov.covered_branches}/${cov.num_branches}` : 'N/A';
-          const text = read('pytest.txt').trim();
+
+          const rawOutput = read('pytest.txt').trim();
+          const covMatch = rawOutput.match(/=+\s*tests coverage\s*=+[\s\S]*?\nTOTAL\s+[^\n]+/);
+          const covTable = covMatch ? covMatch[0].trim() : '';
 
           const marker = '<!-- pytest-coverage-report -->';
           const body = [
@@ -60,7 +63,8 @@ jobs:
             '| :--- | :--- |',
             `| **Tests** | ${passed} passed, ${failed} failed, ${skipped} skipped (${total} total) |`,
             `| **Code Coverage** | ${pct} (Lines: ${lines}, Branches: ${branches}) |`,
-            text ? `\n<details><summary>Text Coverage & Output</summary>\n\n\`\`\`text\n${text}\n\`\`\`\n</details>` : '',
+            covTable ? `\n### Test Coverage\n\`\`\`text\n${covTable}\n\`\`\`` : '',
+            rawOutput ? `\n<details><summary>Full Pytest Output</summary>\n\n\`\`\`text\n${rawOutput}\n\`\`\`\n</details>` : '',
           ].join('\n');
 
           if (process.env.GITHUB_STEP_SUMMARY) fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, body + '\n');
