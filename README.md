@@ -50,7 +50,7 @@ Die Aggregates sind entkoppelt und synchronisieren ihren Zustand über die Domai
 
 | Service | Art | Aufgabe | Methoden |
 | :--- | :--- | :--- | :--- |
-| CollisionService | Domain Service | Fachregel zur Berechnung von Schaden über mehrere Aggregates (`Player`, `Enemy`, `Weapon`) unter Berücksichtigung von `power` und `armor` bei Kollisionen. | `processWeaponCollision(weaponId, enemyId)`<br>`processEnemyCollision(enemyId, playerId)` |
+| DamageCalculationService | Domain Service | Fachregel zur Berechnung von Schaden über mehrere Aggregates (`Player`, `Enemy`, `Weapon`) unter Berücksichtigung von `power` und `armor` bei Kollisionen. | `processWeaponCollision(weaponId, enemyId)`<br>`processEnemyCollision(enemyId, playerId)` |
 | CombatService | Anwendungsservice | Steuert den Spielablauf: Aktualisiert Stats, verarbeitet eingesammelte XP-Objekte, prüft Levelaufstieg und löst kampfbezogene Events aus(z.B. Gegner zestört, Spieler Level erhöht, Run beendet). | `updateStats(event)`<br>`collectXP(playerId, xpObjectId)` |
 | UpgradeShopService | Anwendungsservice | Reagiert auf das "Spieler Level erhöht"-Event, erstellt `Upgrade`-Optionen für den `UpgradeShop`, verarbeitet die Wahl des Upgrades und löst das "Spieler hat Upgrade ausgewählt"-Event aus. | `openShop(event)`<br>`chooseUpgrade(shopId, upgradeId)` |
 | InventoryService | Anwendungsservice | Reagiert auf das "Spieler hat Upgrade ausgewählt"-Event, fügt das Upgrade zum `Inventory` hinzu, berechnet die Gesamt-Stats und löst das `Stats aktualisiert`-Event aus. | `addUpgrade(event)` |
