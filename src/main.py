@@ -2,6 +2,7 @@
 
 import pygame, sys
 from src.ui.debug import debug
+from src.ui.asset_manager import load_assets, ASSETS
 from src.combat.domain.model.Player import Player
 
 class Game:
@@ -13,6 +14,11 @@ class Game:
         pygame.display.set_caption('Team 9: Roguelike Auto Battler')
         self.clock = pygame.time.Clock()
         self.debug_mode = False
+
+        # Load all graphic assets into memory
+        load_assets()
+
+        # Instantiate domain model
         self.player = Player(player_id=1, x=400.0, y=300.0, speed=250.0)
 
     def run(self):
@@ -25,12 +31,12 @@ class Game:
                     sys.exit()
                 # handle discrete key presses
                 if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
-                    # global debug mode
+                    # toggle global debug mode
                     if event.key == pygame.K_F2 and event.type == pygame.KEYDOWN:
                         self.debug_mode = not self.debug_mode
                         print(f"[INFO] Debug Mode: {self.debug_mode}")
 
-            # delta time
+            # delta time / tick
             dt = self.clock.tick(60) / 1000.0
 
             # handle continuous key presses
@@ -43,10 +49,13 @@ class Game:
 
             # rendering
             self.screen.fill('#71DDEE')
-            pygame.draw.rect(self.screen, (230, 50, 50), (int(self.player.x), int(self.player.y), 32, 32))
+            player_surface = ASSETS['player_idle'][0][0]
+            # pygame.draw.rect(self.screen, (230, 50, 50), (int(self.player.x), int(self.player.y), 32, 32))
+            self.screen.blit(player_surface, (int(self.player.x), int(self.player.y)))
             if self.debug_mode:
                 x = pygame.display.get_surface().get_size()[0] - 100
                 debug('fps: ' + str(int(self.clock.get_fps())), x, 20)
+
             pygame.display.update()
 
 if __name__ == '__main__':
