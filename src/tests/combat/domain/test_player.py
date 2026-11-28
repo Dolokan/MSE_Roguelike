@@ -1,3 +1,5 @@
+# src/tests/combat/domain/test_player.py
+
 import pytest
 
 from src.combat.domain.model.Player import Player
@@ -139,3 +141,10 @@ def test_heal_zero_or_negative_raises_value_error(
 ) -> None:
     with pytest.raises(ValueError):
         default_player.heal(invalid_heal_amount)
+
+def test_player_move_updates_position() -> None:
+    player = Player(player_id=1, x=100.0, y=100.0, speed=200.0)
+    # Bewegung nach rechts (dx=1.0, dy=0.0) für 0.5 Sekunden
+    player.move(dx=1.0, dy=0.0, dt=0.5)
+    assert player.x == 200.0
+    assert player.y == 100.0

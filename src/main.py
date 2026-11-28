@@ -1,4 +1,7 @@
+# src/main.py
+
 import pygame, sys
+from src.combat.domain.model.Player import Player
 
 class Game:
     def __init__(self):
@@ -8,6 +11,8 @@ class Game:
         self.screen = pygame.display.set_mode((1280,720))
         pygame.display.set_caption('Team 9: Roguelike Auto Battler')
         self.clock = pygame.time.Clock()
+        self.debug_mode = False
+        self.player = Player(player_id=1, x=400.0, y=300.0, speed=250.0)
 
     def run(self):
 
@@ -17,8 +22,26 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                # discrete key presses
+                if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
+                    # global debug mode
+                    if event.key == pygame.K_F2 and event.type == pygame.KEYDOWN:
+                        self.debug_mode = not self.debug_mode
+                        print(f"[INFO] Debug Mode: {self.debug_mode}")
 
+            # continuous key presses
+            dt = self.clock.tick(60) / 1000.0
+            keys = pygame.key.get_pressed()
+            dx = float((keys[pygame.K_d] or keys[pygame.K_RIGHT]) - (keys[pygame.K_a] or keys[pygame.K_LEFT]))
+            dy = float((keys[pygame.K_s] or keys[pygame.K_DOWN]) - (keys[pygame.K_w] or keys[pygame.K_UP]))
+
+            # update domain model
+            self.player.move(dx, dy, dt)
+
+            # rendering
             self.screen.fill('#71DDEE')
+            pygame.draw.rect(self.screen, (230, 50, 50), (int(self.player.x), int(self.player.y), 32, 32))
+            x = pygame.display.get_surface().get_size()[0] - 100
             pygame.display.update()
             self.clock.tick(60)
 

@@ -1,3 +1,5 @@
+# src/combat/domain/model/Player.py
+
 from dataclasses import dataclass
 
 @dataclass
@@ -8,6 +10,8 @@ class Player:
     max_hp: int = 100
     armor: int = 0
     speed: float = 100.0
+    x: float = 0.0
+    y: float = 0.0
 
     def __post_init__(self) -> None:
         if self.max_hp <= 0:
@@ -33,3 +37,7 @@ class Player:
         if amount <= 0:
             raise ValueError("Heal amount must be positive.")
         self.hp = min(self.max_hp, self.hp + amount)
+
+    def move(self, dx: float, dy: float, dt: float) -> None:
+        self.x += dx * self.speed * dt
+        self.y += dy * self.speed * dt
