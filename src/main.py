@@ -1,6 +1,7 @@
 # src/main.py
 
 import pygame, sys
+from src.ui.debug import debug
 from src.combat.domain.model.Player import Player
 
 class Game:
@@ -22,15 +23,17 @@ class Game:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
-                # discrete key presses
+                # handle discrete key presses
                 if event.type == pygame.KEYDOWN or event.type == pygame.KEYUP:
                     # global debug mode
                     if event.key == pygame.K_F2 and event.type == pygame.KEYDOWN:
                         self.debug_mode = not self.debug_mode
                         print(f"[INFO] Debug Mode: {self.debug_mode}")
 
-            # continuous key presses
+            # delta time
             dt = self.clock.tick(60) / 1000.0
+
+            # handle continuous key presses
             keys = pygame.key.get_pressed()
             dx = float((keys[pygame.K_d] or keys[pygame.K_RIGHT]) - (keys[pygame.K_a] or keys[pygame.K_LEFT]))
             dy = float((keys[pygame.K_s] or keys[pygame.K_DOWN]) - (keys[pygame.K_w] or keys[pygame.K_UP]))
@@ -41,9 +44,10 @@ class Game:
             # rendering
             self.screen.fill('#71DDEE')
             pygame.draw.rect(self.screen, (230, 50, 50), (int(self.player.x), int(self.player.y), 32, 32))
-            x = pygame.display.get_surface().get_size()[0] - 100
+            if self.debug_mode:
+                x = pygame.display.get_surface().get_size()[0] - 100
+                debug('fps: ' + str(int(self.clock.get_fps())), x, 20)
             pygame.display.update()
-            self.clock.tick(60)
 
 if __name__ == '__main__':
     game = Game()
